@@ -2,9 +2,9 @@ doctype html
 html
    head
       link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-      link(href="/css/bootstrap.css", rel="stylesheet")
+      link(href="/css/bootstrap.min.css", rel="stylesheet")
       link(href="/vendor/toastr/toastr.css", rel="stylesheet")
       link(href="/css/site.css", rel="stylesheet")
-   body
-      h1 Hello World
+   body(ng-app="app")
+      block main-content
       include scripts

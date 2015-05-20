@@ -2,6 +2,7 @@ var express 	= require('express'),
     styles 	= require('stylus'),
     morgan      = require('morgan'),
     bodyParser	= require('body-parser');
+    mongoose    = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -21,8 +22,27 @@ app.use(styles.middleware({
 }));
 app.use(express.static(__dirname + '/public'));
 
+mongoose.connect('mongodb://localhost/trivia-app');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error...'));
+db.once('open', function callback(){
+   console.log('trivia-app db opened');
+});
+var messageSchema = mongoose.Schema({message: String});
+var Message = mongoose.model('Message', messageSchema);
+var mongoMessage;
+Message.findOne().exec(function(err, messageDoc){
+   mongoMessage = messageDoc.message;
+});
+
+app.get('/partials/:partialPath', function(req,res){
+   res.render('partials/' + req.params.partialPath);
+});
+
 app.get("*", function(req, res){
-   res.render('index');
+   res.render('index', {
+      mongoMessage: mongoMessage
+   });
 });
 
 var port = 3030;
