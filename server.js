@@ -1,13 +1,32 @@
-var express 		=require('express');
-var morgan 		=require('morgan');
-var bodyParser		=require('body-parser');
-var methodOverride 	=require('method-override');
-var app			=express();
+var express 	= require('express'),
+    styles 	= require('stylus'),
+    morgan      = require('morgan'),
+    bodyParser	= require('body-parser');
 
-app.use(express.static(__dirname + '/public'));
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+var app = express();
+
+function compile(str, path){
+   return styles(str).set('filename',path);
+}
+
+app.set('views', __dirname + '/server/views');
+app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser());
-app.use(methodOverride());
+app.use(styles.middleware({
+   src: __dirname + '/public',
+   compile: compile
+}));
+app.use(express.static(__dirname + '/public'));
 
-app.listen(4567);
-console.log('Simple Static Server Listening on port 4567');
+app.get("*", function(req, res){
+   res.render('index');
+});
+
+var port = 3030;
+
+app.listen(port);
+console.log("Listening on port " + port + "...");
+
