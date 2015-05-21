@@ -22,17 +22,20 @@ app.use(styles.middleware({
 }));
 app.use(express.static(__dirname + '/public'));
 
-mongoose.connect('mongodb://localhost/trivia-app');
+//if(env !== 'development'){
+   console.log("Setting up in the Cloud");
+   mongoose.connect('mongodb://mmcnichol:trivia@ds031842.mongolab.com:31842/trivia-app');
+/*
+}else{
+   console.log("Setting up Locally");
+   mongoose.connect('mongodb://localhost/trivia-app');
+}
+*/
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback(){
    console.log('trivia-app db opened');
-});
-var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-Message.findOne().exec(function(err, messageDoc){
-   mongoMessage = messageDoc.message;
 });
 
 app.get('/partials/:partialPath', function(req,res){
@@ -40,9 +43,7 @@ app.get('/partials/:partialPath', function(req,res){
 });
 
 app.get("*", function(req, res){
-   res.render('index', {
-      mongoMessage: mongoMessage
-   });
+   res.render('index');
 });
 
 var port = process.env.PORT || 3030;
