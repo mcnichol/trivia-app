@@ -16,7 +16,7 @@ module.exports = function(app, config){
   app.use(morgan('dev'));
   app.use(cookieParser());
   app.use(bodyParser());
-  app.use(session({secret:'my little secret'}));
+  app.use(session({secret:'my little secret',resave:false,saveUninitialized:false}));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(stylus.middleware({
