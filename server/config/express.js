@@ -15,7 +15,8 @@ module.exports = function(app, config){
   app.set('view engine', 'jade');
   app.use(morgan('dev'));
   app.use(cookieParser());
-  app.use(bodyParser());
+  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.json());
   app.use(session({secret:'my little secret',resave:false,saveUninitialized:false}));
   app.use(passport.initialize());
   app.use(passport.session());

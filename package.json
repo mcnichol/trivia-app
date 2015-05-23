@@ -18,7 +18,8 @@
     "morgan": "^1.5.3",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
-    "styles": "^0.2.1"
+    "styles": "^0.2.1",
+    "stylus": "^0.51.1"
   },
   "devDependencies": {
     "karma": "^0.12.32",
