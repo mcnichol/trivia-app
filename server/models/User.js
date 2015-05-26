@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'),
+var mongoose 	= require('mongoose'),
     encrypt 	= require('../utilities/encryption')
 
 var userSchema = mongoose.Schema({

@@ -1,0 +1,6 @@
+.panel.panel-primary
+  .panel-heading.text-center May Event Categories
+  .panel-body
+    .row(ng-repeat="category in categories | filter: {featured:true}")
+      .col-md-12
+        a(href="/categories/{{category._id}}") {{category.title}}

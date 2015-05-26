@@ -1,0 +1,17 @@
+.container
+  .row
+    .col-md-12
+      h1 {{category.title}}
+    .col-md-7
+      .panel.panel-primary
+        .panel-heading Description 
+          span.pull-right.badge.glyphicon.glyphicon-star(ng-show="category.featured") 
+        .panel-body {{category.desc}}
+        .panel-footer
+          div Published on {{category.published | date}}
+    .col-md-5
+      .panel.panel-primary
+        .panel-heading Tags
+        .panel-body
+          span(ng-repeat="tag in category.tags") {{tag}} 
+        .panel-footer
