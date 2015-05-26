@@ -2,16 +2,32 @@
   .row
     .col-md-12
       h1 {{category.title}}
-    .col-md-7
+    .col-md-8
       .panel.panel-primary
         .panel-heading Description 
           span.pull-right.badge.glyphicon.glyphicon-star(ng-show="category.featured") 
         .panel-body {{category.desc}}
         .panel-footer
           div Published on {{category.published | date}}
-    .col-md-5
-      .panel.panel-primary
-        .panel-heading Tags
-        .panel-body
-          span(ng-repeat="tag in category.tags") {{tag}} 
-        .panel-footer
+      .col-md-6(style="padding-left:0")
+        .panel.panel-primary
+          .panel-heading Tags
+          .panel-body
+            span(ng-repeat="tag in category.tags"){{tag}} 
+    .col-md-4
+      #trivia-example.carousel.slide(data-ride="carousel" data-interval="false" ng-hide="category.exampImg.length < 1")
+        ol.carousel-indicators
+          li.active(ng-repeat="(k,v) in category.exampImg" data-target="#trivia-example" data-slide-to="{{k}}")
+        .carousel-inner(role="listbox")
+          .item(ng-repeat="exampleimage in category.exampImg" ng-class="{active:$first}")
+            .thumbnail
+              img(src="{{category.exampImgBase}}{{exampleimage.img}}")
+              .caption
+                h3 What Do You Think?  
+                p {{exampleimage.desc}}
+        a.carousel-control.left(href="#trivia-example" role="button" data-slide="prev")
+          span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+          span.sr-only Previous
+        a.carousel-control.right(href="#trivia-example" role="button" data-slide="next")
+          span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+          span.sr-only Next
