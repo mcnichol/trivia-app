@@ -1,0 +1,7 @@
+.panel.panel-primary
+  .panel-heading.text-center All Events
+  .panel-body
+    .row(ng-repeat="event in events | orderBy:'scheduled':true | limitTo:10")
+      .col-md-3 {{event.scheduled | date:'MMM d'}}
+      .col-md-9
+        a(href="/events/{{event._id}}") {{event.title}}

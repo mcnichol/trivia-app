@@ -1,36 +1,42 @@
-var auth 	= require('./auth'),
-    users 	= require('../controllers/users'),
+var auth 	    = require('./auth'),
+    users 	    = require('../controllers/users'),
     categories 	= require('../controllers/categories'),
+    events      = require('../controllers/events'),
     mongoose 	= require('mongoose'),
-    User 	= mongoose.model('User');
+    User 	    = mongoose.model('User');
 
 module.exports = function(app){
-  app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
-  app.post('/api/users', users.createUser);
-  app.put('/api/users', users.updateUser);
+    app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
+    app.post('/api/users', users.createUser);
+    app.put('/api/users', users.updateUser);
 
-  app.get('/api/categories', categories.getCategories);
-  app.get('/api/categories/:id', categories.getCategoriesById);
+    app.get('/api/categories', categories.getCategories);
+    app.get('/api/categories/:id', categories.getCategoriesById);
 
-  app.get('/partials/*', function(req,res){
-    res.render('../../public/app/' + req.params[0]);
-  });
+    app.get('/api/events', events.getEvents);
+    app.get('/api/events/:id', events.getEventsById);
+    app.put('/api/events/:id', events.updateEvent);
 
-  app.post('/login', auth.authenticate);
 
-  app.post('/logout', function(req, res){
-    req.logout();
-    res.end();
-  });
-
-  app.all('/api/*', function(req, res){
-    res.send(404);
-  });
-
-  app.get("*", function(req, res){
-    res.render('index', {
-      bootstrappedUser: req.user
+    app.get('/partials/*', function(req,res){
+        res.render('../../public/app/' + req.params[0]);
     });
-  });
-}
+
+    app.post('/login', auth.authenticate);
+
+    app.post('/logout', function(req, res){
+        req.logout();
+        res.end();
+    });
+
+    app.all('/api/*', function(req, res){
+        res.sendStatus(404);
+    });
+
+    app.get("*", function(req, res){
+        res.render('index', {
+            bootstrappedUser: req.user
+        });
+    });
+};
 

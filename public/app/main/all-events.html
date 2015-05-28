@@ -1,0 +1,1 @@
+<div class="panel panel-primary"><div class="panel-heading text-center">All Events</div><div class="panel-body"><div ng-repeat="event in events | orderBy:'scheduled':true | limitTo:10" class="row"><div class="col-md-3">{{event.scheduled | date:'MMM d'}}</div><div class="col-md-9"><a href="/events/{{event._id}}">{{event.title}}</a></div></div></div></div>

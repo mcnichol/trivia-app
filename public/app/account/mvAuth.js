@@ -53,6 +53,7 @@ angular.module('app').factory('mvAuth', function($http, mvIdentity, $q, mvUser){
       });
       return dfd.promise;
     },
+
     authorizeCurrentUserForRoute: function(role){
       if(mvIdentity.isAuthorized('admin')){
         return true;
@@ -60,6 +61,7 @@ angular.module('app').factory('mvAuth', function($http, mvIdentity, $q, mvUser){
         return $q.reject('Not Authorized');
       }
     },
+
     authorizeAuthenticatedUserForRoute: function(){
       if(mvIdentity.isAuthenticated()){	
         return true;

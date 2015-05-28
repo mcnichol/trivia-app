@@ -8,7 +8,7 @@ angular.module('app').controller('mvNavBarLoginCtrl', function($scope, $http, mv
         mvNotifier.notify('Username/Password combination incorrect');
       }
     })
-  }
+  };
 
   $scope.signout = function(){
     mvAuth.logoutUser().then(function(){
@@ -18,4 +18,4 @@ angular.module('app').controller('mvNavBarLoginCtrl', function($scope, $http, mv
       $location.path('/');
     })
   }
-})
+});

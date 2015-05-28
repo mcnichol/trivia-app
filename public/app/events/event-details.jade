@@ -1,0 +1,98 @@
+.container(ng-controller="mvEventDetailCtrl")
+    .row
+        .col-md-12
+            h1(ng-hide="event.started") {{event.title}}
+            div(ng-show="event.started")
+                .pull-left.round-buttons
+                    button.btn.btn-success(ng-click="setRound(1)") Round 1
+                    button.btn.btn-primary(ng-click="setRound(2)") Round 2
+                    button.btn.btn-danger(ng-click="setRound(3)") Round 3
+                    button.btn.btn-info(ng-click="setRound(4)") Round 4
+    .row
+        .col-md-8(ng-hide="event.started")
+            .panel.panel-primary
+                .panel-heading Event Description
+                .panel-body {{event.longDesc}}
+                .panel-footer
+                    div(ng-hide="event.started") Starting on {{event.scheduled | date}}
+        .col-md-4(ng-class="{'col-md-12':event.started,'col-md-4':!event.started}")
+            .panel(ng-class="{'panel-success':event.started, 'panel-primary':!event.started}")
+                .panel-body
+                    .row(ng-hide="event.started")
+                        div
+                            h3.col-md-12.col-md-offset-1 This Event Has Not Started
+                    .row(ng-show="event.started && event.round==1")
+                        #landmark.carousel.slide(data-ride="carousel" data-interval="false")
+                            ol.carousel-indicators
+                                li(ng-repeat="(k,v) in event.categories[0].questions" ng-class="{active:$first}" data-slide-to="{{k}}")
+                            .carousel-inner(role="listbox")
+                                .item(ng-repeat="exampleimage in event.categories[0].questions" ng-class="{active:$first}")
+                                    .thumbnail
+                                        img(src="{{event.categories[0].exampImgBase}}/{{exampleimage.imgPath[0]}}")
+                                        .caption
+                                            h1 {{exampleimage.title}}
+                                            h2 {{exampleimage.q_msg}}
+                            span.carousel-control.left(data-target="#landmark" role="button" data-slide="prev")
+                                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                                span.sr-only Previous
+                            span.carousel-control.right(data-target="#landmark" role="button" data-slide="next")
+                                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                                span.sr-only Next
+
+                    .row(ng-show="event.started && event.round==2")
+                        #movie.carousel.slide(data-ride="carousel" data-interval="false")
+                            ol.carousel-indicators
+                                li(ng-repeat="(k,v) in event.categories[1].questions" ng-class="{active:$first}" data-slide-to="{{k}}")
+                            .carousel-inner(role="listbox")
+                                .item(ng-repeat="exampleimage in event.categories[1].questions" ng-class="{active:$first}")
+                                    .thumbnail
+                                        img(src="{{event.categories[1].exampImgBase}}/{{exampleimage.imgPath[0]}}")
+                                        .caption
+                                            h1 {{exampleimage.title}}
+                                            h2 {{exampleimage.q_msg}}
+                            span.carousel-control.left(data-target="#movie" role="button" data-slide="prev")
+                                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                                span.sr-only Previous
+                            span.carousel-control.right(data-target="#movie" role="button" data-slide="next")
+                                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                                span.sr-only Next
+
+                    .row(ng-show="event.started && event.round==3")
+                        #audio.carousel.slide(data-ride="carousel" data-interval="false")
+                            ol.carousel-indicators
+                                li(ng-repeat="(k,v) in event.categories[2].questions" ng-class="{active:$first}" data-slide-to="{{k}}")
+                            .carousel-inner(role="listbox")
+                                .item(ng-repeat="exampleimage in event.categories[2].questions" ng-class="{active:$first}")
+                                    .thumbnail
+                                        img(src="{{event.categories[2].exampImgBase}}/{{exampleimage.imgPath[0]}}")
+                                        .caption
+                                            h1 {{exampleimage.title}}
+                                            h2 {{exampleimage.q_msg}}
+                            span.carousel-control.left(data-target="#audio" role="button" data-slide="prev")
+                                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                                span.sr-only Previous
+                            span.carousel-control.right(data-target="#audio" role="button" data-slide="next")
+                                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                                span.sr-only Next
+                    .row(ng-show="event.started && event.round==4")
+                        #brainteaser.carousel.slide(data-ride="carousel" data-interval="false")
+                            ol.carousel-indicators
+                                li(ng-repeat="(k,v) in event.categories[3].questions" ng-class="{active:$first}" data-slide-to="{{k}}")
+                            .carousel-inner(role="listbox")
+                                .item(ng-repeat="exampleimage in event.categories[3].questions" ng-class="{active:$first}")
+                                    .thumbnail
+                                        img(src="{{event.categories[3].exampImgBase}}/{{exampleimage.imgPath[0]}}")
+                                        .caption
+                                            h1 {{exampleimage.title}}
+                                            h2{{exampleimage.q_msg}}
+                            span.carousel-control.left(data-target="#brainteaser" role="button" data-slide="prev")
+                                span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+                                span.sr-only Previous
+                            span.carousel-control.right(data-target="#brainteaser" role="button" data-slide="next")
+                                span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+                                span.sr-only Next
+
+
+                    .row.col-md-6.col-md-offset-3(ng-show="identity.currentUser.isAdmin() && !event.started")
+                        button.btn.btn-primary(ng-click="startEvent()") Start this Event
+                        button.btn.btn-primary(ng-click="stopEvent()") Stop this Event

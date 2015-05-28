@@ -33,3 +33,16 @@ footer p {
 .toast-success {
   background-color: #13987e;
 }
+.round-buttons button {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.panel-body button {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.carousel .item.left img {
+  width: 100% !important;
+}

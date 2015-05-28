@@ -29,6 +29,9 @@ angular.module('app').config(function($routeProvider, $locationProvider){
     .when('/events', {templateUrl: '/partials/events/event-list',
         controller: 'mvEventListCtrl'
     })
+    .when('/events/:id', {templateUrl: '/partials/events/event-details',
+        controller: 'mvEventDetailCtrl'
+    })
     .when('/categories', {templateUrl: '/partials/categories/category-list',
         controller: 'mvCategoryListCtrl'
     })

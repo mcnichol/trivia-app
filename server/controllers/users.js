@@ -56,4 +56,4 @@ exports.updateUser = function(req, res){
     if(err) {res.status(400); return res.send({reason:err.toString()})}
     res.send(req.user);
   })
-}
+};

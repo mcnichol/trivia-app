@@ -19,4 +19,4 @@ angular.module('app').controller('mvProfileCtrl', function($scope, mvAuth, mvIde
       mvNotifier.error(reason);
     })
   }
-})
+});
